@@ -66,7 +66,7 @@ npm run package
 
 ### Project Structure
 
-```
+```txt
 recent-bookmarks/
 ├── background.js          # Background service worker
 ├── popup.html            # Popup UI
@@ -85,12 +85,13 @@ recent-bookmarks/
 - [x] Time-ago display
 - [x] Firefox support
 
-### v1.0 - MVP (In Progress)
+### v1.0 - MVP (mostly done)
 
-- [ ] Manifest V3 migration
-- [ ] Modern UI with dark mode
-- [ ] Search functionality
-- [ ] Cross-browser support (Chrome, Firefox, Edge)
+- [x] Manifest V3 migration
+- [x] Modern UI with dark mode
+- [x] Search functionality
+- [-] Cross-browser support (Chrome, Firefox, Edge) ... still working on Edge
+- [ ] Fixing the Favicon API call that reduces privacy
 
 ### v1.1 - Enhanced Features
 
