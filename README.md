@@ -26,9 +26,9 @@ This extension requests access to your bookmarks to display and filter your rece
 
 Install from the [Firefox Add-ons Store](https://addons.mozilla.org/en-US/firefox/addon/recent-bookmarks/)
 
-### Chrome / Edge (Coming Soon)
+### Chrome / Edge 
 
-Chrome Web Store and Edge Add-ons submissions planned for v1.0
+Install from [Chrome Web Store](https://chromewebstore.google.com/detail/cigejfokaihfggneinjbihcfebeloifj)
 
 ## 🚀 Quick Start
 
@@ -93,12 +93,12 @@ recent-bookmarks/
 - [-] Cross-browser support (Chrome, Firefox, Edge) ... still working on Edge
 - [ ] Fixing the Favicon API call that reduces privacy
 
-### v1.1 - Enhanced Features
+### v1.1 - Enhanced Features (likely do)
 
 - [ ] Advanced statistics
 - [ ] export in multiple formats (.md, HTML, JSON, etc.)
 
-### v2.0 - Premium Features
+### v2.0 - Premium Features (might be diverging in new roadmap)
 
 - [ ] Advanced analytics
 - [ ] AI-powered categorization
