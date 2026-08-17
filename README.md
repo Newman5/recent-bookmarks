@@ -26,7 +26,7 @@ This extension requests access to your bookmarks to display and filter your rece
 
 Install from the [Firefox Add-ons Store](https://addons.mozilla.org/en-US/firefox/addon/recent-bookmarks/)
 
-### Chrome / Edge 
+### Chrome / Edge
 
 Install from [Chrome Web Store](https://chromewebstore.google.com/detail/cigejfokaihfggneinjbihcfebeloifj)
 
