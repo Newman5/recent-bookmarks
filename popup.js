@@ -197,24 +197,17 @@ function displayBookmarks(searchQuery = '') {
   });
 }
 
-// Create favicon element
+// Create favicon placeholder
 function createFavicon(url) {
   try {
     const domain = new URL(url).hostname;
-    const favicon = document.createElement('img');
-    favicon.className = 'favicon';
-    favicon.src = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=32`;
-    favicon.alt = '';
-    
-    // Fallback if favicon fails to load
-    favicon.onerror = function() {
-      const placeholder = document.createElement('div');
-      placeholder.className = 'favicon-placeholder';
-      placeholder.textContent = domain && domain.length > 0 ? domain[0].toUpperCase() : '?';
-      this.parentNode.replaceChild(placeholder, this);
-    };
-    
-    return favicon;
+    const placeholder = document.createElement('div');
+    placeholder.className = 'favicon-placeholder';
+    placeholder.textContent = domain && domain.length > 0
+      ? domain[0].toUpperCase()
+      : '?';
+
+    return placeholder;
   } catch (error) {
     const placeholder = document.createElement('div');
     placeholder.className = 'favicon-placeholder';
