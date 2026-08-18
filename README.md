@@ -99,7 +99,7 @@ recent-bookmarks/
 ### Privacy
 
 - [x] Remove external Google favicon requests
-- [ ] Move extension preferences from storage.sync to storage.local - see issue [#9](https://github.com/Newman5/recent-bookmarks/issues/9)
+- [x] Move extension preferences from storage.sync to storage.local - see issue [#9](https://github.com/Newman5/recent-bookmarks/issues/9)
 
 ### Folder Context
 

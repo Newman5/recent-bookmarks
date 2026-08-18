@@ -14,7 +14,7 @@ chrome.runtime.onInstalled.addListener((details) => {
   
   // Set default settings on first install
   if (details.reason === 'install') {
-    chrome.storage.sync.set({
+    chrome.storage.local.set({
       theme: 'auto',
       dateRange: 14,
       bookmarkLimit: 200,
