@@ -90,16 +90,50 @@ recent-bookmarks/
 - [x] Manifest V3 migration
 - [x] Modern UI with dark mode
 - [x] Search functionality
-- [-] Cross-browser support (Chrome, Firefox, Edge) ... still working on Edge
-- [ ] Fixing the Favicon API call that reduces privacy
+- [x] Cross-browser support (Chrome and Firefox)
+- [x] Fixing the Favicon API call that reduces privacy
 
-### v1.1 - Enhanced Features (likely do)
 
-- [ ] Advanced statistics
-- [ ] export in multiple formats (.md, HTML, JSON, etc.)
+## Next Release v1.1 — Folder Context + Portable Bookmarks
+
+### Privacy
+
+- [x] Remove external Google favicon requests
+- [ ] Move extension preferences from storage.sync to storage.local - see issue [#9](https://github.com/Newman5/recent-bookmarks/issues/9)
+
+### Folder Context
+
+- [ ] Display each bookmark's folder/path
+- [ ] Use the extension with real bookmark folders and evaluate the display
+- [ ] Add folder filtering
+- [ ] Parent-folder filtering includes descendant folders
+- [ ] Remember selected folder filters locally
+
+### Export
+
+- [ ] Define a small JSON bookmark export schema
+- [ ] Export the current filtered bookmark set as JSON
+- [ ] Add one additional export/interchange format
+  - Candidate: Netscape Bookmark HTML
+
+### Release
+
+- [ ] Firefox testing
+- [ ] Chrome testing
+- [ ] Run lint/build checks
+- [ ] Update README with Save → Review → Use direction
+- [ ] Update public roadmap
+- [ ] Add open-source/contribution/community message
+- [ ] Decide next version number
+- [ ] Build release packages
+- [ ] Publish Mozilla Add-ons update
+- [ ] Publish Chrome Web Store update
+
 
 ### v2.0 - Premium Features (might be diverging in new roadmap)
 
+- [ ] Advanced statistics
+- [ ] Foldback privacy grey features - Favicon and Settings sync.
 - [ ] Advanced analytics
 - [ ] AI-powered categorization
 - [ ] Team collaboration
