@@ -103,11 +103,12 @@ recent-bookmarks/
 
 ### Folder Context
 
-- [ ] Display each bookmark's folder/path
-- [ ] Use the extension with real bookmark folders and evaluate the display
-- [ ] Add folder filtering
-- [ ] Parent-folder filtering includes descendant folders
-- [ ] Remember selected folder filters locally
+- [ ] Display bookmark folder paths - see Issue [#13](https://github.com/Newman5/recent-bookmarks/issues/13)
+  - [ ] Test with real bookmark folder hierarchies and evaluate display
+
+- [ ] Filter bookmarks by folder
+  - [ ] Parent folders include bookmarks from descendant folders
+  - [ ] Remember selected folder filters locally
 
 ### Export
 
