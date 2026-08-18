@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Load settings from storage
 async function loadSettings() {
   return new Promise((resolve) => {
-    browserAPI.storage.sync.get(['theme', 'dateRange', 'bookmarkLimit'], (result) => {
+    browserAPI.storage.local.get(['theme', 'dateRange', 'bookmarkLimit'], (result) => {
       // Ensure result is an object
       result = result || {};
       currentSettings = {
@@ -51,7 +51,7 @@ async function loadSettings() {
 // Save settings to storage
 async function saveSettings() {
   return new Promise((resolve) => {
-    browserAPI.storage.sync.set(currentSettings, () => {
+    browserAPI.storage.local.set(currentSettings, () => {
       console.log('Settings saved');
       resolve();
     });
