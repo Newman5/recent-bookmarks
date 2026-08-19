@@ -97,6 +97,31 @@ function setupEventListeners() {
   dateRangeSelect.addEventListener('change', handleDateRangeChange);
 }
 
+async function getFolderDisplayPath(parentId) {
+  try {
+    const [parent] = await browserAPI.bookmarks.get(parentId);
+
+    if (!parent) {
+      return '';
+    }
+
+    const parts = [parent.title];
+
+    if (parent.parentId) {
+      const [grandparent] = await browserAPI.bookmarks.get(parent.parentId);
+
+      if (grandparent?.title) {
+        parts.unshift(grandparent.title);
+      }
+    }
+
+    return parts.join(' / ');
+  } catch (error) {
+    console.warn('Unable to determine bookmark folder path:', error);
+    return '';
+  }
+}
+
 // Load bookmarks from browser API
 async function loadBookmarks() {
   const loadingEl = document.getElementById('loading');
@@ -119,6 +144,14 @@ async function loadBookmarks() {
     // Filter bookmarks by date and remove folders
     allBookmarks = bookmarkItems.filter((item) =>
       item.url && item.dateAdded >= startDate,
+    );
+
+    // enhance bookmarks with folder paths
+    allBookmarks = await Promise.all(
+      allBookmarks.map(async (bookmark) => ({
+        ...bookmark,
+        folderPath: await getFolderDisplayPath(bookmark.parentId),
+      })),
     );
     
     // Initial filter (no search query)
@@ -175,6 +208,15 @@ function displayBookmarks(searchQuery = '') {
     titleEl.textContent = ''; // Clear previous content
     titleEl.appendChild(highlightNode);
 
+    // Create folder path
+    let folderEl = null;
+    if (bookmark.folderPath) {
+      folderEl = document.createElement('div');
+      folderEl.className = 'bookmark-folder';
+      folderEl.textContent = bookmark.folderPath;
+
+    }
+
     // Create meta info
     const metaEl = document.createElement('div');
     metaEl.className = 'bookmark-meta';
@@ -188,6 +230,11 @@ function displayBookmarks(searchQuery = '') {
     metaEl.textContent = `${hostname} • ${timeAgo}`;
     
     contentEl.appendChild(titleEl);
+
+    if (folderEl) {
+      contentEl.appendChild(folderEl);
+    }
+
     contentEl.appendChild(metaEl);
     
     a.appendChild(faviconEl);
