@@ -106,9 +106,9 @@ recent-bookmarks/
 - [x] Display bookmark folder paths - see Issue [#13](https://github.com/Newman5/recent-bookmarks/issues/13)
   - [x] Test with real bookmark folder hierarchies and evaluate display
 
-- [ ] Filter bookmarks by folder - see issue [#16](https://github.com/Newman5/recent-bookmarks/issues/16)
-  - [ ] Parent folders include bookmarks from descendant folders
-  - [ ] Remember selected folder filters locally
+- [x] Filter bookmarks by folder - see issue [#16](https://github.com/Newman5/recent-bookmarks/issues/16)
+  - [x] Parent folders include bookmarks from descendant folders
+  - [x] Remember selected folder filters locally
 
 ### Export
 
