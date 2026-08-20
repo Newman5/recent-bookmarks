@@ -100,6 +100,14 @@ function setupEventListeners() {
   // Date range filter
   const dateRangeSelect = document.getElementById('date-range');
   dateRangeSelect.addEventListener('change', handleDateRangeChange);
+
+  // Export JSON button
+  const exportJsonButton = document.getElementById('export-json');
+  exportJsonButton.addEventListener('click', exportBookmarksAsJson);
+
+  // Export HTML button
+  const exportHtmlButton = document.getElementById('export-html');
+  exportHtmlButton.addEventListener('click', exportBookmarksAsHtml);
 }
 
 async function getFolderDisplayPath(parentId) {
@@ -185,6 +193,140 @@ function getAvailableFolders() {
         : folder.title,
     };
   });
+}
+
+// Create a hierarchical tree structure of bookmarks
+function createBookmarkTree(bookmarks) {
+  const root = {
+    bookmarks: [],
+    folders: {},
+  };
+
+  bookmarks.forEach(bookmark => {
+    const folders = getExportFolders(bookmark.folderAncestry);
+    let current = root;
+
+    folders.forEach(folderName => {
+      if (!current.folders[folderName]) {
+        current.folders[folderName] = {
+          bookmarks: [],
+          folders: {},
+        };
+      }
+
+      current = current.folders[folderName];
+    });
+
+    current.bookmarks.push(createExportBookmark(bookmark));
+  });
+
+  return root;
+}
+
+// Get export folder paths for bookmarks
+function getExportFolders(folderAncestry = []) {
+  return folderAncestry
+    .filter(folder =>
+      folder.title &&
+      folder.title !== 'Bookmarks Toolbar' &&
+      folder.title !== 'Bookmarks Menu' &&
+      folder.title !== 'Other Bookmarks',
+    )
+    .map(folder => folder.title)
+    .reverse();
+}
+
+// Create exportable data structure
+function createExportData(bookmarks) {
+  return {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    bookmarks: bookmarks.map(createExportBookmark),
+  };
+}
+
+// Create exportable bookmark object
+function createExportBookmark(bookmark) {
+  return {
+    title: bookmark.title || '',
+    url: bookmark.url,
+    dateAdded: new Date(bookmark.dateAdded).toISOString(),
+    folders: getExportFolders(bookmark.folderAncestry),
+  };
+}
+
+// Export bookmarks as JSON file
+function exportBookmarksAsJson() {
+  const exportData = createExportData(filteredBookmarks);
+  const json = JSON.stringify(exportData, null, 2);
+
+  const blob = new Blob([json], {
+    type: 'application/json',
+  });
+
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `recent-bookmarks-${new Date().toISOString().slice(0, 10)}.json`;
+
+  link.click();
+
+  URL.revokeObjectURL(url);
+}
+
+// Serialize bookmark tree to Netscape format
+function serializeBookmarkTree(node, indent = '    ') {
+  const lines = [];
+
+  node.bookmarks.forEach(bookmark => {
+    lines.push(
+      `${indent}<DT><A HREF="${escapeHtml(bookmark.url)}" ADD_DATE="${getNetscapeTimestamp(bookmark.dateAdded)}">${escapeHtml(bookmark.title)}</A>`,
+    );
+  });
+
+  Object.entries(node.folders).forEach(([folderName, folderNode]) => {
+    lines.push(`${indent}<DT><H3>${escapeHtml(folderName)}</H3>`);
+    lines.push(`${indent}<DL><p>`);
+    lines.push(serializeBookmarkTree(folderNode, `${indent}    `));
+    lines.push(`${indent}</DL><p>`);
+  });
+
+  return lines.filter(Boolean).join('\n');
+}
+
+// Create Netscape bookmark HTML
+function createNetscapeHtml(bookmarks) {
+  const tree = createBookmarkTree(bookmarks);
+  const content = serializeBookmarkTree(tree);
+
+  return `<!DOCTYPE NETSCAPE-Bookmark-file-1>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<TITLE>Recent Bookmarks</TITLE>
+<H1>Recent Bookmarks</H1>
+<DL><p>
+${content}
+</DL><p>
+`;
+}
+
+// Export bookmarks as HTML file
+function exportBookmarksAsHtml() {
+  const html = createNetscapeHtml(filteredBookmarks);
+
+  const blob = new Blob([html], {
+    type: 'text/html;charset=utf-8',
+  });
+
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `recent-bookmarks-${new Date().toISOString().slice(0, 10)}.html`;
+
+  link.click();
+
+  URL.revokeObjectURL(url);
 }
 
 // Render folder filter options
@@ -372,6 +514,8 @@ function applyFilters() {
     return matchesSearch && matchesFolder;
   });
 
+  //temp for testing
+
   displayBookmarks(searchQuery);
 }
 
@@ -442,6 +586,19 @@ function highlightText(text, query) {
 // Escape regex special characters
 function escapeRegex(text) {
   return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+// Escape HTML special characters
+function escapeHtml(text = '') {
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+//
+function getNetscapeTimestamp(dateAdded) {
+  return Math.floor(new Date(dateAdded).getTime() / 1000);
 }
 
 // Get relative time string
