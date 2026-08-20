@@ -112,12 +112,12 @@ recent-bookmarks/
 
 ### Export
 
-- [ ] Define a small JSON bookmark export schema
+- [ ] Define a small JSON bookmark export schema - see issue [#18](https://github.com/Newman5/recent-bookmarks/issues/18)
 - [ ] Export the current filtered bookmark set as JSON
 - [ ] Add one additional export/interchange format
-  - Candidate: Netscape Bookmark HTML
+  - [ ] Candidate: Netscape Bookmark HTML
 
-### Release
+### Release v1.1
 
 - [ ] Firefox testing
 - [ ] Chrome testing
