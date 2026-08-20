@@ -4,10 +4,13 @@ const browserAPI = typeof browser !== 'undefined' ? browser : chrome;
 // State management
 let allBookmarks = [];
 let filteredBookmarks = [];
+let selectedFolderIds = [];
+let searchQuery = '';
 let currentSettings = {
   theme: 'auto',
   dateRange: 14,
   bookmarkLimit: 200,
+  selectedFolderIds: [],
 };
 
 // Initialize the popup
@@ -28,14 +31,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Load settings from storage
 async function loadSettings() {
   return new Promise((resolve) => {
-    browserAPI.storage.local.get(['theme', 'dateRange', 'bookmarkLimit'], (result) => {
+    browserAPI.storage.local.get(['theme', 'dateRange', 'bookmarkLimit', 'selectedFolderIds'], (result) => {
       // Ensure result is an object
       result = result || {};
       currentSettings = {
         theme: result.theme || 'auto',
         dateRange: result.dateRange || 14,
         bookmarkLimit: result.bookmarkLimit || 200,
+        selectedFolderIds: result.selectedFolderIds || [],
       };
+      selectedFolderIds = currentSettings.selectedFolderIds;
 
       // Set the date range select value
       const dateRangeSelect = document.getElementById('date-range');
@@ -122,6 +127,89 @@ async function getFolderDisplayPath(parentId) {
   }
 }
 
+// Get folder ancestry
+async function getFolderAncestry(parentId) {
+  const folders = [];
+  let currentId = parentId;
+
+  try {
+    while (currentId) {
+      const [folder] = await browserAPI.bookmarks.get(currentId);
+
+      if (!folder || !folder.title) {
+        break;
+      }
+
+      folders.push({
+        id: folder.id,
+        title: folder.title,
+      });
+
+      currentId = folder.parentId;
+    }
+  } catch (error) {
+    console.warn('Unable to determine bookmark folder ancestry:', error);
+  }
+
+  return folders;
+}
+
+// Get unique folders from bookmarks
+function getAvailableFolders() {
+  const foldersById = new Map();
+
+  allBookmarks.forEach(bookmark => {
+    const folder = bookmark.folderAncestry?.[0];
+    const parentFolder = bookmark.folderAncestry?.[1];
+
+    if (folder) {
+      foldersById.set(folder.id, {
+        id: folder.id,
+        title: folder.title,
+        parentTitle: parentFolder?.title || '',
+      });
+    }
+  });
+
+  const folders = Array.from(foldersById.values());
+  return folders.map(folder => {
+    const hasDuplicateName = folders.some(otherFolder =>
+      otherFolder.id !== folder.id &&
+      otherFolder.title === folder.title,
+    );
+
+    return {
+      ...folder,
+      label: hasDuplicateName && folder.parentTitle
+        ? `${folder.parentTitle} / ${folder.title}`
+        : folder.title,
+    };
+  });
+}
+
+// Render folder filter options
+function renderFolderOptions() {
+  const container = document.getElementById('folder-options');
+  const folders = getAvailableFolders();
+
+  container.textContent = '';
+
+  folders.forEach(folder => {
+    const label = document.createElement('label');
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.value = folder.id;
+    checkbox.checked = selectedFolderIds.includes(folder.id);
+    checkbox.addEventListener('change', handleFolderChange);
+
+    label.appendChild(checkbox);
+    label.appendChild(document.createTextNode(` ${folder.label}`));
+
+    container.appendChild(label);
+  });
+}
+
 // Load bookmarks from browser API
 async function loadBookmarks() {
   const loadingEl = document.getElementById('loading');
@@ -151,14 +239,15 @@ async function loadBookmarks() {
       allBookmarks.map(async (bookmark) => ({
         ...bookmark,
         folderPath: await getFolderDisplayPath(bookmark.parentId),
+        folderAncestry: await getFolderAncestry(bookmark.parentId),
       })),
     );
-    
-    // Initial filter (no search query)
-    filteredBookmarks = [...allBookmarks];
-    
-    // Display bookmarks
-    displayBookmarks();
+
+    // Render folder filter options
+    renderFolderOptions();
+
+    // Apply current search and folder filters
+    applyFilters();
     
   } catch (error) {
     console.error('Error loading bookmarks:', error);
@@ -263,21 +352,48 @@ function createFavicon(url) {
   }
 }
 
+// Apply filters based on search query and selected folders
+function applyFilters() {
+  filteredBookmarks = allBookmarks.filter(bookmark => {
+    const title = (bookmark.title || '').toLowerCase();
+    const url = (bookmark.url || '').toLowerCase();
+
+    const matchesSearch =
+      !searchQuery ||
+      title.includes(searchQuery) ||
+      url.includes(searchQuery);
+
+    const matchesFolder =
+      selectedFolderIds.length === 0 ||
+      selectedFolderIds.some(folderId =>
+        bookmark.folderAncestry.some(folder => folder.id === folderId),
+      );
+
+    return matchesSearch && matchesFolder;
+  });
+
+  displayBookmarks(searchQuery);
+}
+
+// Handle folder filter change
+function handleFolderChange(event) {
+  const folderId = event.target.value;
+
+  if (event.target.checked) {
+    selectedFolderIds.push(folderId);
+  } else {
+    selectedFolderIds = selectedFolderIds.filter(id => id !== folderId);
+  }
+  currentSettings.selectedFolderIds = selectedFolderIds;
+  saveSettings();
+
+  applyFilters();
+}
+
 // Handle search input
 function handleSearch(event) {
-  const query = event.target.value.toLowerCase().trim();
-  
-  if (query === '') {
-    filteredBookmarks = [...allBookmarks];
-  } else {
-    filteredBookmarks = allBookmarks.filter(bookmark => {
-      const title = (bookmark.title || '').toLowerCase();
-      const url = (bookmark.url || '').toLowerCase();
-      return title.includes(query) || url.includes(query);
-    });
-  }
-  
-  displayBookmarks(query);
+  searchQuery = event.target.value.toLowerCase().trim();
+  applyFilters();
 }
 
 // Handle date range change
