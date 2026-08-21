@@ -119,10 +119,11 @@ recent-bookmarks/
 
   ### UI update
   
-  - [ ] Polish folder and export controls - See Issue [#20](https://github.com/Newman5/recent-bookmarks/issues/20)
+  - [x] Polish folder and export controls - See Issue [#20](https://github.com/Newman5/recent-bookmarks/issues/20)
 
-### Release v1.1
+### Release v1.1.0
 
+see issue [#22](https://github.com/Newman5/recent-bookmarks/issues/22)
 - [ ] Firefox testing
 - [ ] Chrome testing
 - [ ] Run lint/build checks
