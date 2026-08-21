@@ -1,103 +1,103 @@
 # 🛡️ PRIVACY POLICY — Recent Bookmarks Browser Extension
 
-Last updated: December 4, 2025
+Last updated: August 21, 2026
 
-Recent Bookmarks is a browser extension designed to help users quickly view and search their recently added bookmarks. This extension prioritizes user privacy and does not collect or transmit any personal data.
+Recent Bookmarks is a browser extension designed to help users review, filter, and export their recently added bookmarks. This extension prioritizes user privacy and does not collect or transmit personal data.
 
-1. Information We Collect
+## 1. Information We Collect
 
-We do NOT collect any personal information.
-The extension does not track users, does not log activity, and does not use analytics.
+We do NOT collect personal information.
+
+The extension does not track users, log activity, or use analytics.
 
 The only data the extension accesses is:
 
-Bookmarks
+### Bookmarks
 
-    The extension reads your browser bookmarks so it can display and search them inside the popup.
+The extension reads your browser bookmarks so it can display, search, and filter recently added bookmarks, including their folder information.
 
-    This access is required for core functionality.
+This access is required for core functionality.
 
-Local Settings
+### Local Settings
 
-    The extension stores your preferences (e.g., dark mode, time range filters) using the browser’s storage API.
+The extension stores preferences such as date-range and folder-filter selections using the browser's local storage API.
 
-    These settings are stored locally on your device only.
+These settings are stored locally on your device.
 
-2. Information We Do Not Collect
+## 2. Information We Do Not Collect
 
-The Recent Bookmarks extension does not collect:
+Recent Bookmarks does not collect:
 
-    Personal data
-
-    Browsing history
-
-    Usage statistics
-
-    Bookmark contents or URLs outside your device
-
-    Device identifiers
-
-    IP addresses
-
-    Any data stored by other websites or extensions
+- Personal data
+- Browsing history
+- Usage statistics
+- Bookmark contents or URLs outside your device
+- Device identifiers
+- IP addresses
+- Data stored by other websites or extensions
 
 We do not use:
 
-    Analytics
+- Analytics
+- Cookies
+- Third-party scripts
+- Tracking technologies
 
-    Cookies
+## 3. Data Storage and Processing
 
-    Third-party scripts
+Bookmark data and extension settings are processed locally in your browser.
 
-    Tracking technologies
+The extension does not transmit bookmark data, settings, or usage information to external servers or to the developer.
 
-3. Data Storage
+Recent Bookmarks does not require an account or maintain a remote database.
 
-All data processed by the extension stays entirely on your device.
+## 4. Bookmark Exports
 
-The extension does not transmit any data to external servers or to the developer.
+Recent Bookmarks allows you to export the currently filtered bookmark set as JSON or Netscape Bookmark HTML.
 
-4. Data Sharing
+Exports are generated locally in your browser and downloaded to your device. Recent Bookmarks does not upload or transmit exported bookmark data.
 
-We do not sell, share, or transfer any data to third parties.
+Exported files may contain bookmark titles, URLs, dates, and folder information. Once exported, these files are under your control and should be handled like any other file containing your bookmark information.
+
+## 5. Data Sharing
+
+We do not sell, share, or transfer your data to third parties.
+
 We do not share data with advertisers, analytics providers, or external companies.
 
-No data ever leaves your browser.
+**Recent Bookmarks does not send your data outside your browser or device.**
 
-5. Permissions Used
+## 6. Permissions Used
 
 The extension uses two permissions:
 
-1. bookmarks
+### `bookmarks`
 
-Used only to read and display your bookmarks in the popup.
+Used to read your bookmarks and their folder structure so Recent Bookmarks can display, search, filter, and export recent bookmarks.
 
-2. storage
+### `storage`
 
-Used to save user settings such as:
+Used to save extension preferences, including date-range and folder-filter selections.
 
-Dark mode
+These preferences are stored locally on your device.
 
-Filtering preferences
+## 7. How to Delete Your Data
 
-These settings are stored locally on your machine.
+Recent Bookmarks does not maintain a remote copy of your data.
 
-6. How to Delete Your Data
+Uninstalling the extension removes extension-managed local settings according to your browser's extension storage behavior.
 
-Since all data is stored locally:
+Exported JSON or Bookmark HTML files are ordinary files on your device and must be deleted separately if you no longer want them.
 
-Uninstalling the extension immediately removes all stored settings.
-
-No remote deletion is necessary because no data is stored externally.
-
-7. Contact
+## 8. Contact
 
 If you have questions or concerns about this privacy policy, you may contact the developer:
 
 Newman Lanier
 [Open a GitHub Issue](https://github.com/Newman5/recent-bookmarks/issues/new)
 
-8. Changes to This Policy
+## 9. Changes to This Policy
 
 If the functionality or data usage of the extension changes, this privacy policy will be updated accordingly.
-Any material updates will be reflected in the “Last updated” date.
+
+Any material updates will be reflected in the "Last updated" date.

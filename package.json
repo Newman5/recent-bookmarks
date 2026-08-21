@@ -1,13 +1,14 @@
 {
   "name": "recent-bookmarks",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A modern browser extension to track, organize, and reflect on your recent bookmarks",
   "main": "background.js",
   "scripts": {
     "lint": "eslint *.js",
     "lint:fix": "eslint *.js --fix",
     "test": "echo \"No tests specified yet\" && exit 0",
-    "build:firefox": "web-ext build --artifacts-dir=./dist/firefox --overwrite-dest --ignore-files=node_modules dist .git .github CONTRIBUTING.md EXECUTIVE_SUMMARY.md MARKETING_QUICK_START.md MODERNIZATION_STRATEGY.md MONETIZATION_STRATEGY.md MVP_ROADMAP.md package.json package-lock.json .eslintrc.js .gitignore",
+    "build:firefox": "web-ext build --artifacts-dir=./dist/firefox --overwrite-dest --ignore-files=node_modules dist .git .github dev-notes CONTRIBUTING.md package.json package-lock.json .eslintrc.js .gitignore",
+    "build:chrome": "web-ext build --artifacts-dir=./dist/chrome --overwrite-dest --ignore-files=node_modules dist .git .github dev-notes CONTRIBUTING.md package.json package-lock.json .eslintrc.js .gitignore",
     "start:firefox": "web-ext run --browser-console --ignore-files=node_modules dist .git",
     "package": "npm run lint && npm run build:firefox"
   },

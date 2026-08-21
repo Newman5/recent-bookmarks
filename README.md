@@ -1,22 +1,32 @@
 # Recent Bookmarks - Track & Review Your Bookmarks
 
 [![Firefox Add-on](https://img.shields.io/badge/Firefox-Available-orange)](https://addons.mozilla.org/en-US/firefox/addon/recent-bookmarks/)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome-Available-yellow)](https://chromewebstore.google.com/detail/recent-bookmarks/cigejfokaihfggneinjbihcfebeloifj)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-> **Remember what you saved, reflect on what you learned.**
+> **Save → Review → Use**
 
-A modern, cross-browser extension that helps you track, organize, and review your recent bookmarks. Perfect for monthly reflection, research workflows, and staying organized. [Read the PRIVACY.md file](privacy.md)
+Recent Bookmarks is a small, local-first browser extension that makes your existing bookmarks more useful.
+
+You can bookmark pages normally and organize them with the folders already built into your browser. Recent Bookmarks gives you a simple way to return to what you've recently saved, filter it by date or folder, and export useful sets of bookmarks for whatever comes next.
+
+The goal is not to replace the browser's bookmark system with another service, account, or database. It is to make bookmarks a more useful part of a research and knowledge workflow.
+
+Your bookmark data stays in your browser. [Read the privacy policy](privacy.md).
 
 ## 🌟 Features
 
-- 📚 View your recent bookmarks with timestamps
-- 🔍 Fast, real-time search
-- 📅 Filter by date range (last week, month, etc.)
-- 🌙 Dark mode support
-- ⚡ Lightning fast and lightweight
-- 🔒 Privacy-focused (no cloud, no tracking)
-- 🌐 Cross-browser compatible (Firefox, Chrome, Edge)
+- 📚 View recently saved bookmarks with timestamps and folder context
+- 🔍 Search recent bookmarks by title or URL
+- 📅 Filter by date range
+- 📁 Filter by one or more bookmark folders
+- 🌳 Select a parent folder to include bookmarks from its descendants
+- 📤 Export the current filtered set as JSON
+- 🔖 Export as Netscape Bookmark HTML for browser interoperability
+- 🌙 Light and dark theme support
+- 🔒 Local-first and privacy-focused — no cloud service or tracking
+- 🌐 Works with Firefox and Chrome
 
 This extension requests access to your bookmarks to display and filter your recent bookmarks. It also uses browser storage to save your settings and preferences. **No data is sent outside your browser**.
 
@@ -32,16 +42,19 @@ Install from [Chrome Web Store](https://chromewebstore.google.com/detail/cigejfo
 
 ## 🚀 Quick Start
 
-1. Click the extension icon in your browser toolbar
-2. See your recent bookmarks instantly
-3. Search or filter to find what you need
-4. Click any bookmark to open it
+1. Save bookmarks normally using your browser
+2. Organize them into bookmark folders when useful
+3. Open Recent Bookmarks to review what you've recently saved
+4. Narrow the list by date, folder, or search
+5. Open bookmarks directly or export the filtered set as JSON or Bookmark HTML
+
+**Save → Review → Use**
 
 ## 🛠️ Development
 
 ### Prerequisites
 
-- Node.js 18+ and npm 9+
+- Node.js 20+ and npm 9+
 - Firefox or Chrome for testing
 
 ### Setup
@@ -57,11 +70,21 @@ npm install
 # Run linter
 npm run lint
 
-# Test in Firefox
-npm run start:firefox
+# Testing Locally
 
-# Build for distribution
-npm run package
+## Firefox
+1. Open about:debugging in Firefox:
+1. Select This Firefox
+1. Click Load Temporary Add1.on
+1. Select manifest.json from the project directory
+
+You can also run npm run start:firefox.
+
+## Chrome
+1. Open chrome://extensions:
+1. Enable Developer mode
+1. Click Load unpacked
+1. Select the project directory
 ```
 
 ### Project Structure
@@ -78,14 +101,14 @@ recent-bookmarks/
 
 ## 🗺️ Roadmap
 
-### v0.2 - Current State
+### v0.2 - Testing (Feb 2023)
 
 - [x] Core bookmark viewing
 - [x] Basic date filtering
 - [x] Time-ago display
 - [x] Firefox support
 
-### v1.0 - MVP (mostly done)
+### v1.0 - MVP (Dec 2025)
 
 - [x] Manifest V3 migration
 - [x] Modern UI with dark mode
@@ -93,56 +116,24 @@ recent-bookmarks/
 - [x] Cross-browser support (Chrome and Firefox)
 - [x] Fixing the Favicon API call that reduces privacy
 
+### v1.1 — Folder Context + Portable Bookmarks (Aug 2026)
 
-## Next Release v1.1 — Folder Context + Portable Bookmarks
+- [x] Display bookmark folder context
+- [x] Filter recent bookmarks by folder
+- [x] Include descendant folders when filtering
+- [x] Remember folder selections locally
+- [x] Export filtered bookmarks as JSON
+- [x] Export standard Netscape Bookmark HTML
+- [x] Remove external favicon requests
+- [x] Store extension preferences locally
 
-### Privacy
+### What's Next
 
-- [x] Remove external Google favicon requests
-- [x] Move extension preferences from storage.sync to storage.local - see issue [#9](https://github.com/Newman5/recent-bookmarks/issues/9)
+Recent Bookmarks is exploring how the browser's native bookmark system can become a better starting point for research and knowledge workflows.
 
-### Folder Context
+Possible directions include better interchange formats, tools that consume exported bookmark sets, and improvements suggested by people using the extension.
 
-- [x] Display bookmark folder paths - see Issue [#13](https://github.com/Newman5/recent-bookmarks/issues/13)
-  - [x] Test with real bookmark folder hierarchies and evaluate display
-
-- [x] Filter bookmarks by folder - see issue [#16](https://github.com/Newman5/recent-bookmarks/issues/16)
-  - [x] Parent folders include bookmarks from descendant folders
-  - [x] Remember selected folder filters locally
-
-### Export
-
-- [x] Define a small JSON bookmark export schema - see issue [#18](https://github.com/Newman5/recent-bookmarks/issues/18)
-- [x] Export the current filtered bookmark set as JSON
-- [x] Add one additional export/interchange format
-  - [x] Chosen Candidate: Netscape Bookmark HTML
-
-  ### UI update
-  
-  - [x] Polish folder and export controls - See Issue [#20](https://github.com/Newman5/recent-bookmarks/issues/20)
-
-### Release v1.1.0
-
-see issue [#22](https://github.com/Newman5/recent-bookmarks/issues/22)
-- [ ] Firefox testing
-- [ ] Chrome testing
-- [ ] Run lint/build checks
-- [ ] Update README with Save → Review → Use direction
-- [ ] Update public roadmap
-- [ ] Add open-source/contribution/community message
-- [ ] Decide next version number
-- [ ] Build release packages
-- [ ] Publish Mozilla Add-ons update
-- [ ] Publish Chrome Web Store update
-
-
-### v2.0 - Premium Features (might be diverging in new roadmap)
-
-- [ ] Advanced statistics
-- [ ] Foldback privacy grey features - Favicon and Settings sync.
-- [ ] Advanced analytics
-- [ ] AI-powered categorization
-- [ ] Team collaboration
+Ideas, experiments, and contributions are welcome. See [GitHub Issues](https://github.com/Newman5/recent-bookmarks/issues) and [GitHub Discussions](https://github.com/Newman5/recent-bookmarks/discussions).
 
 ## 🤝 Contributing
 
