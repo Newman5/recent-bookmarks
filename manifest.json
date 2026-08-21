@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Recent Bookmarks",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A modern bookmark utility with search, filtering, and dark mode",
   "homepage_url": "https://github.com/Newman5/recent-bookmarks",
   "icons": {
