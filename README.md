@@ -23,7 +23,7 @@ Your bookmark data stays in your browser. [Read the privacy policy](privacy.md).
 - 📁 Filter by one or more bookmark folders
 - 🌳 Select a parent folder to include bookmarks from its descendants
 - 📤 Export the current filtered set as JSON
-- 🔖 Export as Netscape Bookmark HTML for browser interoperability
+- 📤 Export as Netscape Bookmark HTML for browser interoperability
 - 🌙 Light and dark theme support
 - 🔒 Local-first and privacy-focused — no cloud service or tracking
 - 🌐 Works with Firefox and Chrome
@@ -170,7 +170,6 @@ Based on:
 ## 📧 Contact
 
 - **Issues**: [GitHub Issues](https://github.com/Newman5/recent-bookmarks/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/Newman5/recent-bookmarks/discussions)
 
 ---
 
